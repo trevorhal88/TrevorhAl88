@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: rcmp123
+    env: node
+    plan: free
+    buildCommand: npm install && npx prisma generate
+    startCommand: node index.js
+    envVars:
+      - key: DATABASE_URL
+        value: "file:./prisma/dev.db"
+      - key: NODE_ENV
+        value: "production"
+      - key: PORT
+        value: "3000"

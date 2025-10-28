@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String?
+  email        String   @unique
+  passwordHash String
+  items        Item[]
+}
+
+model Item {
+  id             Int       @id @default(autoincrement())
+  title          String
+  description    String?
+  brand          String?
+  model          String?
+  category       String
+  price          Float
+  imageUrl       String?
+  shippingCost   Float?
+  shippingMethod String?
+  status         String    @default("listed")
+  createdAt      DateTime  @default(now())
+  expiresAt      DateTime?
+  sellerId       Int
+  seller         User      @relation(fields: [sellerId], references: [id])
+}
+
+model BlueBookEntry {
+  id              Int     @id @default(autoincrement())
+  brand           String?
+  model           String?
+  category        String?
+  basePriceCents  Int
+  qualityTier     String?
+  popularityScore Int     @default(0)
+}
+
+model PaymentSettings {
+  id           Int     @id @default(autoincrement())
+  stripeSecret String?
+  ebayClientId String?
+  ebaySecret   String?
+}
