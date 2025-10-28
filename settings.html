@@ -1,0 +1,45 @@
+<!doctype html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seller Settings — RCMP123</title>
+<link rel="icon" href="assets/favicon.ico">
+<link rel="stylesheet" href="assets/style.css">
+</head><body>
+<header class="banner">
+  <img src="assets/logo.svg" alt="RCMP123 Logo" style="height:56px">
+  <div><h1>Seller Settings</h1><p class="lead">Store your payment API keys securely (AES‑256).</p></div>
+</header>
+
+<main class="card" style="margin-top:16px;max-width:720px">
+  <form id="paymentForm">
+    <label>Stripe Secret</label><br>
+    <input type="password" id="stripeSecret" placeholder="sk_test_..."><br><br>
+    <label>eBay Client ID</label><br>
+    <input type="text" id="ebayClientId" placeholder="sandbox client id"><br><br>
+    <label>eBay Secret</label><br>
+    <input type="password" id="ebaySecret" placeholder="sandbox secret"><br><br>
+    <button type="submit" class="primary">Save Settings</button>
+  </form>
+</main>
+
+<footer class="owner">
+  <div>Owner: <strong>Trevor Halverson</strong> · Contact: <a href="mailto:trevorhal88@gmail.com">trevorhal88@gmail.com</a></div>
+  <div>Partner AI: <strong>ChatGPT (Sparq)</strong></div>
+</footer>
+
+<script>
+document.getElementById("paymentForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const data = {
+    stripeSecret: document.getElementById('stripeSecret').value,
+    ebayClientId: document.getElementById('ebayClientId').value,
+    ebaySecret: document.getElementById('ebaySecret').value
+  };
+  await fetch('/api/save-settings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  alert('Settings saved (encrypted)');
+};
+</script>
+</body></html>

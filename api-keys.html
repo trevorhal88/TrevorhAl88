@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API Keys — RCMP123</title><link rel="stylesheet" href="assets/style.css"></head><body>
+<header class="banner">
+  <img src="assets/logo.svg" alt="RCMP123 Logo" style="height:56px">
+  <div><h1>API Keys Template</h1><p class="lead">Fill keys and copy into <code>backend/.env</code></p></div>
+</header>
+<main class="card" style="margin-top:16px;max-width:760px">
+  <form id="f">
+    <label>STRIPE_PUBLISHABLE_KEY</label><br><input name="STRIPE_PUBLISHABLE_KEY"><br><br>
+    <label>STRIPE_SECRET_KEY</label><br><input name="STRIPE_SECRET_KEY"><br><br>
+    <label>EBAY_CLIENT_ID</label><br><input name="EBAY_CLIENT_ID"><br><br>
+    <label>EBAY_CLIENT_SECRET</label><br><input name="EBAY_CLIENT_SECRET"><br><br>
+    <label>EBAY_REDIRECT_URI</label><br><input name="EBAY_REDIRECT_URI" value=""><br><br>
+    <label>TOKEN_ENCRYPTION_KEY</label><br><input name="TOKEN_ENCRYPTION_KEY"><br><br>
+    <button class="primary" type="submit">Generate .env</button>
+  </form>
+  <pre id="out" style="margin-top:12px;white-space:pre-wrap"></pre>
+</main>
+<script>
+document.getElementById('f').addEventListener('submit', e=>{
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(e.target).entries());
+  let out = '';
+  out += `SITE_NAME=RCMP123\nPORT=3000\n\n`;
+  out += `STRIPE_PUBLISHABLE_KEY=${d.STRIPE_PUBLISHABLE_KEY||''}\n`;
+  out += `STRIPE_SECRET_KEY=${d.STRIPE_SECRET_KEY||''}\n`;
+  out += `EBAY_CLIENT_ID=${d.EBAY_CLIENT_ID||''}\n`;
+  out += `EBAY_CLIENT_SECRET=${d.EBAY_CLIENT_SECRET||''}\n`;
+  out += `EBAY_REDIRECT_URI=${d.EBAY_REDIRECT_URI||''}\n`;
+  out += `TOKEN_ENCRYPTION_KEY=${d.TOKEN_ENCRYPTION_KEY||''}\n`;
+  out += `DATABASE_URL="file:./prisma/dev.db"\n`;
+  document.getElementById('out').textContent = out;
+  alert('Copy this into backend/.env');
+});
+</script>
+</body></html>

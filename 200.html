@@ -1,0 +1,46 @@
+<!doctype html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>123Sell — RCMP123 (Fallback)</title>
+<link rel="icon" href="assets/favicon.ico">
+<link rel="stylesheet" href="assets/style.css">
+</head><body>
+<header class="banner">
+  <img src="assets/logo.svg" alt="RCMP123 Logo" style="height:56px">
+  <div>
+    <h1>123Sell — RCMP123</h1>
+    <p class="lead">Import existing listings or create new ones. Enforce 14‑day renewals. BlueBook price guidance built in.</p>
+  </div>
+</header>
+
+<main style="margin-top:16px">
+  <section class="card">
+    <h3>Import from elsewhere</h3>
+    <p>Paste a listing URL below (eBay, etc.).</p>
+    <input id="url" placeholder="https://www.ebay.com/itm/..." style="width:68%">
+    <button id="import" class="primary">Import</button>
+    <div id="status" style="margin-top:10px"></div>
+  </section>
+
+  <section style="margin-top:16px" class="card">
+    <h3>Connect eBay (sandbox)</h3>
+    <button id="connect-ebay" class="primary">Connect eBay Sandbox</button>
+  </section>
+</main>
+
+<footer class="owner">
+  <div>Owner: <strong>Trevor Halverson</strong> · Contact: <a href="mailto:trevorhal88@gmail.com">trevorhal88@gmail.com</a></div>
+  <div>Partner AI: <strong>ChatGPT (Sparq)</strong></div>
+</footer>
+
+<script src="Listings.js"></script>
+<script>
+document.getElementById('import').addEventListener('click', async () => {
+  const url = document.getElementById('url').value.trim();
+  if (!url) return alert('Paste a URL first');
+  document.getElementById('status').textContent = 'Import request sent (server must implement /api/import)';
+});
+document.getElementById('connect-ebay').addEventListener('click', ()=>{
+  window.location.href = '/auth/ebay/start?sellerId=1';
+});
+</script>
+</body></html>
